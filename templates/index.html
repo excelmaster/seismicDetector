@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fondo con Temblor</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+    crossorigin="anonymous"
+/>
+    
+            
+        </body>
+    </html>
+    
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'css/site.css')}}">
+</head>
+<body>
+    <!-- Contenedor del fondo que se animará -->
+    <div class="background-container"></div>
+
+    <!-- Contenido que no será afectado por el temblor -->
+    <div  id="content" class="content">
+        <div class="row">
+            <div class="col-sm-2">
+                <img class="img-thumbnail" src="{{ url_for('static', filename='images/logo.png')}}" alt="">
+            </div>
+            <div class="col-sm-1">
+                
+            </div>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-5">                
+                <img
+                    src="{{ url_for('static', filename='images/banner_title.png')}}"
+                    class="img-fluid rounded-top"
+                    alt=""
+                />
+            </div>
+        </div>        
+    </div>
+    <audio id="background-music" src="{{ url_for('static', filename='sounds/starlight-harmonies-185900.mp3')}}" autoplay loop></audio>
+    <audio id="shake-sound" src="{{ url_for('static', filename = 'sounds/temblor.mp3')}}"></audio> <!-- Cambia 'ruta/de/tu/sonido.mp3' por la ruta de tu archivo de sonido -->
+
+    <script>
+        function shakeBackground() {
+            // Reproducir sonido
+            var shakeSound = document.getElementById('shake-sound');
+            shakeSound.currentTime = 0;
+            shakeSound.play();            
+
+            // Animar el contenedor del fondo
+            anime({
+                targets: '.background-container',
+                keyframes: [
+                    { translateX: -10 },
+                    { translateX: 10 },
+                    { translateX: -10 },
+                    { translateX: 10 },
+                    { translateX: 0 }
+                ],
+                duration: 1000,
+                easing: 'easeInOutSine'
+            });
+        }
+
+        // Ejecutar cada 3 segundos
+        setInterval(shakeBackground, 10000);
+
+        function startBackgroundMusic(){
+            var shakeSound = document.getElementById('background-music');
+            shakeSound.currentTime = 0;
+            shakeSound.play();
+        }
+
+        document.getElementById("content").addEventListener("mouseenter",startBackgroundMusic)
+
+    </script>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"
+    ></script>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"
+    ></script>
+</body>
+</html>
