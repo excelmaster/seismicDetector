@@ -13,7 +13,7 @@ body, html {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('../images/grupo_astronautas.jpg'); /* Cambia 'ruta/de/tu/imagen.jpg' por la ruta de tu imagen */
+    /* background-image: url('../images/grupo_astronautas.jpg'); /* Cambia 'ruta/de/tu/imagen.jpg' por la ruta de tu imagen */ */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -27,4 +27,13 @@ body, html {
     color: white;
     margin-top: 20%;
     font-family: Arial, sans-serif;
+}
+
+.banner-intro {
+    border-radius: 10px 10px 10px 10px;
+    border: 10 px;
+}
+
+.img-home {
+    height: 80%;    
 }

@@ -1,0 +1,28 @@
+.maincontainer {  display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; 
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr; 
+    gap: 0px 0px; 
+    grid-template-areas: 
+      "info info . . . logo-nasa"
+      "info info . . . ."
+      "info info . . . ."
+      ". . . . . ."
+      "graph graph graph . . logo"; 
+      height: 100vh; 
+      background-image: url('../images/grupo_astronautas.jpg'); 
+  }
+  
+  .logo { grid-area: logo; }
+  
+.info { 
+    grid-area: info; 
+    display: flexbox;
+}
+  
+.graph { grid-area: graph; }
+.logo-nasa { 
+    grid-area: logo-nasa; 
+    margin: 10px;
+}
+  
+https://grid.layoutit.com/?id=kggqx6T
