@@ -26,14 +26,16 @@
     <!-- <div class="background-container"></div> -->
     <div class="maincontainer" id="content">        
             <div class="logo">
-                <img class="banner-intro" src="{{ url_for('static',filename='images/smru_logo.png')}}" alt="" srcset="">
+              <img class="banner-intro" src="{{ url_for('static',filename='images/smru_logo.png')}}" alt="" srcset="">
             </div>
             <div class="info">
-                <img class="img-home" src="{{ url_for('static',filename='images/banner_white.png')}}" alt="" srcset="">
+              <img class="img-home" src="{{ url_for('static',filename='images/banner_white.png')}}" alt="" srcset="">
             </div>
-            <div class="graph"></div>
+            <div class="graph">
+              <img class="fade-image" id="img_onda" src="{{ url_for('static',filename='images/ondas-home.png')}}" alt="" srcset="" >
+            </div>
             <div class="logo-nasa">
-                <img src="{{ url_for('static',filename='images/logo_nasa_apps.jpeg')}}" alt="" srcset="">
+              <img src="{{ url_for('static',filename='images/logo_nasa_apps.jpeg')}}" alt="" srcset="">
             </div>
     </div>
     <audio
@@ -57,7 +59,7 @@
 
         // Animar el contenedor del fondo
         anime({
-          targets: ".background-container",
+          targets: ".maincontainer",
           keyframes: [
             { translateX: -10 },
             { translateX: 10 },
@@ -68,6 +70,23 @@
           duration: 1000,
           easing: "easeInOutSine",
         });
+
+        let onda = document.getElementById("img_onda");
+        let fadeInTime = 2000;  // 2 segundos para aparecer
+        let stayTime = 2000;    // 2 segundos sólida
+        let fadeOutTime = 4000; // 2 segundos para desaparecer
+            
+            // Aparecer
+            onda.style.opacity = 1;
+            onda.hidden=false;
+
+            setTimeout(() => {
+                // Mantener sólida por stayTime milisegundos
+                setTimeout(() => {
+                    // Desaparecer
+                    onda.style.opacity = 0;
+                }, stayTime);
+            }, fadeInTime);
       }
 
       // Ejecutar cada 3 segundos

@@ -37,3 +37,8 @@ body, html {
 .img-home {
     height: 80%;    
 }
+
+.fade-image {    
+    opacity: 0; /* Comienza transparente */
+    transition: opacity 4s ease; /* Transición suave de opacidad */
+}
