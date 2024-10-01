@@ -5,8 +5,8 @@
     grid-template-areas: 
       "info info . . . logo-nasa"
       "info info . . . ."
-      "info info . . . logo"
-      "graph graph . . . ."
+      "info info . . . ."
+      "graph graph . . . logo"
       ". button seis . . ."; 
       height: 100vh; 
       background-image: url('../images/grupo_astronautas.jpg'); 
