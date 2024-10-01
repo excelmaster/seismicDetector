@@ -13,7 +13,7 @@ body, html {
     left: 0;
     width: 100%;
     height: 100%;
-    /* background-image: url('../images/grupo_astronautas.jpg'); /* Cambia 'ruta/de/tu/imagen.jpg' por la ruta de tu imagen */ */
+    /* background-image: url('../images/grupo_astronautas.jpg'); /* Cambia 'ruta/de/tu/imagen.jpg' por la ruta de tu imagen */ 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -35,10 +35,53 @@ body, html {
 }
 
 .img-home {
-    height: 80%;    
+    height: 90%;    
+}
+
+.img-seis {
+    height: 200px;
+    width: 300px;
+    transform: rotate(-25deg); 
 }
 
 .fade-image {    
     opacity: 0; /* Comienza transparente */
     transition: opacity 4s ease; /* Transición suave de opacidad */
+}
+
+/* antigravedad */
+.antigravity {
+    width: 200px; /* Ajusta el tamaño de la imagen */
+    animation: swingRotate 8s ease-in-out infinite;
+    transform-origin: center; /* El centro será el punto de referencia de rotación */
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px); /* Mueve la imagen hacia arriba */
+    }
+    100% {
+        transform: translateY(0); /* Vuelve a la posición original */
+    }
+}
+
+@keyframes swingRotate {
+    0% {
+        transform: rotate(0deg); /* Comienza en 0 grados */
+    }
+    25% {
+        transform: rotate(60deg); /* Gira hasta 60 grados */
+    }
+    50% {
+        transform: rotate(0deg); /* Vuelve a 0 grados */
+    }
+    75% {
+        transform: rotate(-60deg); /* Gira hasta -60 grados */
+    }
+    100% {
+        transform: rotate(0deg); /* Regresa a 0 grados */
+    }
 }

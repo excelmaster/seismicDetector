@@ -6,8 +6,8 @@
       "info info . . . logo-nasa"
       "info info . . . ."
       "info info . . . ."
-      "graph graph graph . . ."
-      ". . . . . logo"; 
+      "graph graph . . . ."
+      ". button seis . . logo"; 
       height: 100vh; 
       background-image: url('../images/grupo_astronautas.jpg'); 
   }
@@ -24,5 +24,9 @@
     grid-area: logo-nasa; 
     margin: 10px;
 }
+
+.seis { grid-area: seis;}
+
+.button { grid-area: button;}
   
 https://grid.layoutit.com/?id=kggqx6T

@@ -24,19 +24,58 @@
   <body>
     <!-- Contenedor del fondo que se animará -->
     <!-- <div class="background-container"></div> -->
-    <div class="maincontainer" id="content">        
-            <div class="logo">
-              <img class="banner-intro" src="{{ url_for('static',filename='images/smru_logo.png')}}" alt="" srcset="">
-            </div>
-            <div class="info">
-              <img class="img-home" src="{{ url_for('static',filename='images/banner_white.png')}}" alt="" srcset="">
-            </div>
-            <div class="graph">
-              <img class="fade-image" id="img_onda" src="{{ url_for('static',filename='images/ondas-home.png')}}" alt="" srcset="" >
-            </div>
-            <div class="logo-nasa">
-              <img src="{{ url_for('static',filename='images/logo_nasa_apps.jpeg')}}" alt="" srcset="">
-            </div>
+    <div class="maincontainer" id="content">
+      <div class="logo">
+        <img
+          class="banner-intro"
+          src="{{ url_for('static',filename='images/smru_logo.png')}}"
+          alt=""
+          srcset=""
+        />
+      </div>
+      <div class="info">
+        <img
+          class="img-home"
+          src="{{ url_for('static',filename='images/banner_white.png')}}"
+          alt=""
+          srcset=""
+        />
+      </div>
+      <div class="graph">
+        <img
+          class="fade-image"
+          id="img_onda"
+          src="{{ url_for('static',filename='images/ondas-home.png')}}"
+          alt=""
+          srcset=""
+        />
+      </div>
+      <div class="logo-nasa">
+        <img
+          src="{{ url_for('static',filename='images/logo_nasa_apps.jpeg')}}"
+          alt=""
+          srcset=""
+        />
+      </div>
+      <div class="seis">
+        <a href="{{ url_for('graphs')}}">
+          <img
+            class="img-seis antigravity"
+            src="{{ url_for('static',filename='images/seis_element.png')}}"
+            alt=""
+            srcset=""
+          />
+        </a>
+      </div>
+      <div class="button">
+        <a href="{{ url_for('graphs')}}">
+          <img
+            src="{{ url_for('static',filename='images/boton_enter.png')}}"
+            alt=""
+            srcset=""
+          />
+        </a>
+      </div>
     </div>
     <audio
       id="background-music"
@@ -72,21 +111,21 @@
         });
 
         let onda = document.getElementById("img_onda");
-        let fadeInTime = 2000;  // 2 segundos para aparecer
-        let stayTime = 2000;    // 2 segundos sólida
+        let fadeInTime = 2000; // 2 segundos para aparecer
+        let stayTime = 2000; // 2 segundos sólida
         let fadeOutTime = 4000; // 2 segundos para desaparecer
-            
-            // Aparecer
-            onda.style.opacity = 1;
-            onda.hidden=false;
 
-            setTimeout(() => {
-                // Mantener sólida por stayTime milisegundos
-                setTimeout(() => {
-                    // Desaparecer
-                    onda.style.opacity = 0;
-                }, stayTime);
-            }, fadeInTime);
+        // Aparecer
+        onda.style.opacity = 1;
+        onda.hidden = false;
+
+        setTimeout(() => {
+          // Mantener sólida por stayTime milisegundos
+          setTimeout(() => {
+            // Desaparecer
+            onda.style.opacity = 0;
+          }, stayTime);
+        }, fadeInTime);
       }
 
       // Ejecutar cada 3 segundos
