@@ -8,7 +8,7 @@
       "info info . . . ."
       "graph graph . . . logo"
       ". button seis . . ."; 
-      height: 100vh; 
+      height: 100%; 
       background-image: url('../images/grupo_astronautas.jpg'); 
   }
   
@@ -29,4 +29,4 @@
 
 .button { grid-area: button;}
   
-https://grid.layoutit.com/?id=kggqx6T
+/* https://grid.layoutit.com/?id=kggqx6T */
