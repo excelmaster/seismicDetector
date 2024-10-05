@@ -48,6 +48,12 @@ body, html {
     transform: rotate(-25deg); 
 }
 
+.img-enter {
+    height: 94px;
+    width: 300px;  
+    transform: rotate(-5deg);   
+}
+
 .fade-image {    
     opacity: 0; /* Comienza transparente */
     transition: opacity 4s ease; /* Transición suave de opacidad */
@@ -57,6 +63,11 @@ body, html {
 .antigravity {
     width: 200px; /* Ajusta el tamaño de la imagen */
     animation: swingRotate 8s ease-in-out infinite;
+    transform-origin: center; /* El centro será el punto de referencia de rotación */
+}
+
+.lowgravity {   
+    animation: float 5s ease-in-out infinite;
     transform-origin: center; /* El centro será el punto de referencia de rotación */
 }
 
