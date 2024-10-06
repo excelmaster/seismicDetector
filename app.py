@@ -20,9 +20,8 @@ model = YOLO(model_path)
 
  # Archivo MSEED de ejemplo
 test_filename = 'XB.ELYSE.02.BHV.2022-01-02HR04_evid0006'
-data_directory = 'space_apps_2024_seismic_detection/data/mars/training/data/'
+data_directory = 'source/mars/train/'
 mseed_file = f'{data_directory}{test_filename}.mseed'
-
 app = Flask(__name__)
 
 @app.route('/')
@@ -33,10 +32,10 @@ def home():
 def graphs():
     return render_template("dashboard.html")
 
-@app.route('/graphs')
+''' @app.route('/graphs')
 def graphs():
     # Renderizar la plantilla `results.html`
-    return render_template("results.html", results={})
+    return render_template("results.html", results={}) '''
     
 @app.route('/run_model', methods=['POST'])
 def run_model():
