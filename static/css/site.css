@@ -100,3 +100,9 @@ body, html {
         transform: rotate(0deg); /* Regresa a 0 grados */
     }
 }
+
+.gframe {
+    border: 3px solid ;
+    border-color: blue;
+
+}

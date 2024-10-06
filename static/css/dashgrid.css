@@ -1,0 +1,37 @@
+/* https://grid.layoutit.com/?id=dJ7GSsD*/
+
+.maincontainer {
+  display: grid; 
+  grid-template-columns: 1fr 1fr 0.1fr 1fr 1fr 1fr 1fr 1fr 0.1fr 1fr 1fr; 
+  grid-template-rows: 0.5fr 1fr 1fr 1fr 1fr 0.5fr 1fr 1fr 1fr 1fr 0.2fr 0.5fr 1fr; 
+  gap: 2px 2px; 
+  grid-template-areas: 
+    "projecttitle projecttitle projecttitle projecttitle projecttitle projecttitle projecttitle projecttitle projecttitle projecttitle projecttitle"
+    "fileSelector fileSelector . original original original original original . textResult textResult"
+    "fileSelector fileSelector . original original original original original . textResult textResult"
+    "fileSelector fileSelector . original original original original original . textResult textResult"
+    "fileSelector fileSelector . original original original original original . textResult textResult"
+    "fileSelector fileSelector . resultEvent resultEvent resultEvent resultEvent resultEvent resultEvent resultEvent resultEvent"
+    "fileSelector fileSelector . spectogram spectogram spectogram spectogram spectogram . graph graph"
+    "fileSelector fileSelector . spectogram spectogram spectogram spectogram spectogram . graph graph"
+    "fileSelector fileSelector . spectogram spectogram spectogram spectogram spectogram . graph graph"
+    "fileSelector fileSelector . spectogram spectogram spectogram spectogram spectogram . graph graph"
+    "fileSelector fileSelector . . . . . . . . ."
+    "fileSelector fileSelector . info info info info info info info info"
+    ". . . . . . . . . . .";  
+  background-image: url("..//images/dashbg.jpg");
+  height: 100%;
+}
+
+.projecttitle { grid-area: projecttitle; }
+.resultEvent { grid-area: resultEvent; }
+.info { grid-area: info; }
+.textResult { grid-area: textResult; }
+.spectogram { grid-area: spectogram; }
+.graph { grid-area: graph; }
+.original { grid-area: original; }
+.fileSelector { 
+  display: flexbox;
+  grid-area: fileSelector; 
+  gap: 2px 2px;
+}
