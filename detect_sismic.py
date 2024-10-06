@@ -160,7 +160,11 @@ def plot_signal(times, data, save_path, w=10, h=3, x_coords=None, mseed_file="")
 results_path = "runs/detect"
 
 # Load the YOLO model.
-model_path = 'static/models/train1000.pt'
+model_path = r"static\models\train100.pt"
+if not os.path.isfile(model_path):
+    raise FileNotFoundError(f"The model file could not be found at the specified path: {model_path}")
+
+
 model = YOLO(model_path)
 nombre_modelo = os.path.basename(model_path)
 # Verificar si el nombre del modelo contiene '1024' al final (antes de la extensión)
@@ -171,7 +175,7 @@ else:
 
 # Example MSEED file.
 test_filename = 'XB.ELYSE.02.BHV.2021-10-11HR23_evid0011'
-data_directory = 'space_apps_2024_seismic_detection/data/mars/test/data/'
+data_directory = 'source/mars/test/'
 mseed_file = f'{data_directory}{test_filename}.mseed'
 
 tr = load_mseed(mseed_file)

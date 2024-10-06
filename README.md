@@ -25,7 +25,7 @@ To set up the project, first, clone the repository and then install the dependen
 
 ```bash
 git clone https://github.com/excelmaster/seismicDetector.git
-cd seismic-detection
+cd seismicDetector
 pip install -r requirements.txt
 ```
 
