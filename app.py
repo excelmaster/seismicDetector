@@ -148,6 +148,18 @@ def load_data():
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
 
+@app.route('/getfiles',methods={'POST'})
+def getFiles():
+    folder_path = '/path/to/your/folder'
+
+    try:
+        # Obtener los archivos y retornar solo los archivos, no directorios
+        files = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
+    except FileNotFoundError:
+        return jsonify({'error': 'Carpeta no encontrada'}), 404
+
+    # Devolver el listado de archivos como JSON
+    return jsonify({'files': files})
 # ----------------- FUNCIONES ----------------- #
 
 def cargar_mseed(file_path):

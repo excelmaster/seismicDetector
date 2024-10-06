@@ -42,8 +42,8 @@
                         <div class="row mb-3">
                             <div class="col-sm-12">
                                 <label for="inputPassword3 text-white" class="col-form-label text-white">PLANET</label>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Open this select menu</option>
+                                <select id="select_planet" class="form-select" aria-label="Default select example">
+                                    <option value="empty" selected>Open this select menu</option>
                                     <option value="mars">Mars</option>
                                     <option value="moon">Moon</option>
                                     <option value="earth">Earth</option>
@@ -54,8 +54,8 @@
                             <div class="col-sm-12">
                                 <label for="inputPassword3 text-white" class="col-form-label text-white">DATA
                                     TYPE</label>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Open this select menu</option>
+                                <select id="selectType" class="form-select" aria-label="Default select example">
+                                    <option value="empty" selected>Open this select menu</option>
                                     <option value="train">Train</option>
                                     <option value="test">Test</option>
                                 </select>
@@ -65,8 +65,8 @@
                             <div class="col-sm-12">
                                 <label for="inputPassword3 text-white" class="col-form-label text-white">SELECT
                                     FILE</label>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Open this select menu</option>
+                                <select id="selectFile" class="form-select" aria-label="Default select example">
+                                    <option value="empty" selected>Open this select menu</option>
                                     <option value="train">1_CSV.csv</option>
                                     <option value="test">Test_2.csv</option>
                                 </select>
@@ -160,6 +160,7 @@
                         // Recargar la página para ver las imágenes actualizadas
                         document.getElementById('resultText').innerText = "Resultado: " + data.result;
                         document.getElementById('img_spec').setAttribute('src','static/images/detect/predict/espectograma.png');
+                        document.getElementById('img_detect').setAttribute('src','static/images/detect/predict/original_signal_with_detections.png');
                     } else {
                         document.getElementById('resultText').innerText = 'Error al ejecutar el modelo: ' + data.error;
                     }
@@ -171,7 +172,7 @@
         });
     </script>
     <script>
-        document.getElementById('runModel').addEventListener('click', function () {
+        document.getElementById('runModel').addEventListener('click', function () { 
             // Ocultar el contenedor de resultados anteriores
             document.getElementById('resultsContainer').style.display = 'none';
 
@@ -195,7 +196,39 @@
                 });
         });
     </script>
+    <script>
+        document.getElementById('select_planet').addEventListener('change', function(event) {
+             var planet = event.target.value;
+             var dataType = document.getElementById('selectType').value;
 
+             if(planet != 'empty' && dataType != 'empty') {
+                
+                const folderpath = 'source/' + planet + '/' + dataType
+
+                fetch('/getfiles', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        param1: folderpath                        
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Mostrar el resultado en el párrafo
+                    document.getElementById('resultText').innerText = data.result;
+                })
+                .catch(error => console.error('Error:', error));
+             } else {
+                console.log('Error:', error);
+             }
+        });
+
+        document.getElementById('selectType').addEventListener('change', function(event) {
+                console.log('type: ', event.target.value);
+        });   
+    </script>
 </body>
 
 </html>
