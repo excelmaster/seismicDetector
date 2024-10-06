@@ -50,5 +50,63 @@ Run the detection script on a specific MSEED file with the following command:
 
 ```bash
 python detect_seismic.py --data_directory="data/mars/test/data/" --model_path="models/train1000.pt" --test_filename="XB.ELYSE.02.BHV.2021-10-11HR23_evid0011"
+```
+
+### Output
+The script will generate the following outputs:
+
+1. **Spectrogram images**: A visual representation of the signal's frequency content over time, with detection markers for seismic events.
+2. **CSV file**: A CSV file containing the coordinates of detected events along with their corresponding timestamps and confidence scores.
+3. **Signal plot**: A plot of the original seismic signal with markers indicating detected events.
+
+The results will be stored in the `runs/detect/` directory, which will be created automatically if it does not exist.
+
+### Troubleshooting
+- **Issue**: The MSEED file is not found.
+  - **Solution**: Ensure that the `data_directory` and `test_filename` parameters are correctly set, and the file exists in the specified path.
+  
+- **Issue**: No events are detected in the spectrogram.
+  - **Solution**: Lower the detection confidence threshold in the `perform_detection` function by setting the `conf` parameter to a lower value (e.g., `conf=0.3`).
+
+## Model Training
+The YOLO model was pre-trained with spectrogram images of seismic data from various sources, including data from the Mars InSight mission. To train your own model, you can modify the `ultralytics` training command as follows:
+
+```bash
+yolo train model=train1000.pt data=data.yaml epochs=100
+```
+
+Ensure that you have prepared a `data.yaml` file with the correct paths to your training data and labels. The YOLO model can be fine-tuned with more epochs or different learning rates to improve performance.
+
+### Preparing Your Own Data
+1. Organize your spectrogram images in directories labeled according to the type of event (e.g., `earthquake` and `noise`).
+2. Create a `data.yaml` file that defines the structure and paths of your dataset.
+3. Use the `ultralytics` command to start training your model.
+
+## Detection Workflow
+The detection process consists of the following steps:
+1. **Load MSEED Data**: Read and process the seismic data using the `load_mseed` function.
+2. **Generate Spectrogram**: Create a spectrogram using the `calculate_spectrogram` function from `scipy`.
+3. **Perform Detection**: Use the YOLO model to detect events in the spectrogram image with the `perform_detection` function.
+4. **Save Results**: Save detected coordinates to a CSV file and mark them on the spectrogram using `save_detection_results` and `plot_spectrogram`.
+
+## Visualization
+The results include spectrograms with markers for expected events and detected events. Use the `plot_spectrogram` function to visualize the spectrogram and compare it with known events from the catalog.
+
+To visualize the original signal and highlight detected events, use the `plot_signal` function, which overlays detected points on the time-domain representation of the signal.
+
+## Contributing
+Contributions are welcome! Please create an issue or a pull request if you have suggestions or improvements. Make sure to follow the coding style and include documentation for any new functions or features added.
+
+### Guidelines
+1. Fork the repository and create a new branch for your feature.
+2. Test your feature thoroughly before submitting a pull request.
+3. Include a detailed description of the changes and the impact on existing code.
+
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contact
+For any questions or support related to this project, please reach out to the maintainers via email or through the GitHub issue tracker.
+
 
 
