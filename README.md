@@ -13,7 +13,7 @@ This project is focused on detecting seismic events using spectrogram analysis a
 - [License](#license)
 
 ## Project Overview
-This project is designed for the NASA Space Apps Challenge 2024, under the team name "Seismic Military Forces". The project involves:
+This project is designed for the NASA Space Apps Challenge 2024, under the team name "6_Mic Military Research Unit". The project involves:
 - Loading seismic data in MSEED format.
 - Generating spectrograms using `scipy`.
 - Detecting seismic events using a pre-trained YOLO model.
@@ -26,6 +26,15 @@ To set up the project, first, clone the repository and then install the dependen
 ```bash
 git clone https://github.com/excelmaster/seismicDetector.git
 cd seismicDetector
+pip install -r requirements.txt
+```
+
+### In **conda** it would be:
+```bash
+git clone https://github.com/excelmaster/seismicDetector.git
+cd seismicDetector
+conda create --name seismic_env python=3.8
+conda activate seismic_env
 pip install -r requirements.txt
 ```
 
@@ -67,6 +76,9 @@ The results will be stored in the `runs/detect/` directory, which will be create
   
 - **Issue**: No events are detected in the spectrogram.
   - **Solution**: Lower the detection confidence threshold in the `perform_detection` function by setting the `conf` parameter to a lower value (e.g., `conf=0.3`).
+
+- **Issue**: The model file could not be found at the specified path.
+  - **Solution**: Verify that the model file path is correctly specified in the configuration. Make sure the file exists at that location or download the model again if it's missing.
 
 ## Model Training
 The YOLO model was pre-trained with spectrogram images of seismic data from various sources, including data from the Mars InSight mission. To train your own model, you can modify the `ultralytics` training command as follows:
