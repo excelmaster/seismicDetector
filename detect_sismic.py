@@ -160,7 +160,10 @@ def plot_signal(times, data, save_path, w=10, h=3, x_coords=None, mseed_file="")
 results_path = "runs/detect"
 
 # Load the YOLO model.
-model_path = 'static/models/train1000.pt'
+model_path = r"static\models\train100.pt"
+if not os.path.isfile(model_path):
+    raise FileNotFoundError(f"The model file could not be found at the specified path: {model_path}")
+
 
 model = YOLO(model_path)
 nombre_modelo = os.path.basename(model_path)
