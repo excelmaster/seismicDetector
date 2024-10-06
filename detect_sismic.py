@@ -160,7 +160,7 @@ def plot_signal(times, data, save_path, w=10, h=3, x_coords=None, mseed_file="")
 results_path = "runs/detect"
 
 # Load the YOLO model.
-model_path = 'Data/SolarSystem1024/models/train1000.pt'
+model_path = 'static/models/train1000.pt'
 model = YOLO(model_path)
 nombre_modelo = os.path.basename(model_path)
 # Verificar si el nombre del modelo contiene '1024' al final (antes de la extensión)
