@@ -1,1 +1,8 @@
 flask==2.3.2
+matplotlib==3.7.2
+numpy==1.23.5
+obspy==1.4.1
+pandas==2.0.3
+scipy==1.11.0
+torch==2.4.1
+ultralytics==8.3.1
