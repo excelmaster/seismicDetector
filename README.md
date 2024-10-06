@@ -5,7 +5,6 @@ This project is focused on detecting seismic events using spectrogram analysis a
 ## Table of Contents
 - [Project Overview](#project-overview)
 - [Installation](#installation)
-- [Directory Structure](#directory-structure)
 - [Usage](#usage)
 - [Model Training](#model-training)
 - [Detection Workflow](#detection-workflow)
@@ -21,7 +20,7 @@ This project is designed for the NASA Space Apps Challenge 2024, under the team 
 - Plotting the results and saving them as images and CSV files.
 
 
-## Directory Structure
+## Installation
 To set up the project, first, clone the repository and then install the dependencies.
 
 ```bash
@@ -30,21 +29,26 @@ cd seismic-detection
 pip install -r requirements.txt
 ```
 
-## Directory Structure
-The project is organized as follows:
-seismic-detection/
-│
-├── data/
-│   ├── catalog/               # CSV files with catalog data (e.g., event labels, metadata)
-│   └── mars/                  # MSEED files from Mars data (raw seismic data from Mars)
-│
-├── models/
-│   └── train1000.pt           # Pre-trained YOLO model file
-│
-├── runs/                      # Folder to store detection results and plots
-│
-├── scripts/                   # Additional Python scripts for processing (if any)
-│
-├── requirements.txt           # List of dependencies required for the project
-└── README.md                  # Project documentation (this file)
+## Usage
+To run the project and perform detection on an example MSEED file, use the following command:
+
+```bash
+python detect_seismic.py
+```
+### Parameters
+You can modify the following parameters in the script:
+
+- **`data_directory`**: The path to the directory containing MSEED files for analysis. Example: `"data/mars/test/data/"`.
+- **`model_path`**: The path to the YOLO model file to use for detection. Example: `"models/train1000.pt"`.
+- **`results_path`**: The path to save detection results, such as spectrogram images and CSV files. Example: `"runs/detect/"`.
+- **`test_filename`**: The name of the MSEED file to process (without extension). Example: `"XB.ELYSE.02.BHV.2021-10-11HR23_evid0011"`.
+
+You can modify these parameters directly in the `detect_seismic.py` script or pass them as command-line arguments.
+
+### Example Usage
+Run the detection script on a specific MSEED file with the following command:
+
+```bash
+python detect_seismic.py --data_directory="data/mars/test/data/" --model_path="models/train1000.pt" --test_filename="XB.ELYSE.02.BHV.2021-10-11HR23_evid0011"
+
 
