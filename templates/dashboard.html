@@ -16,13 +16,14 @@
 
 <body>
     <div class="maincontainer" id="content">
-        <div class="projecttitle gframe">
+        <div class="projecttitle">
             <p class="lead">
             <h1 class="display-5 text-white"> Solar System Seismic Detection</h1>
             </p>
         </div>
-        <div class="fileSelector gframe">
-            <p class="lead text-white">1. Choose between select a precharged file or upload a seismic file:</p>
+        <div class="fileSelector">
+            <div>
+            <p class="lead text-white"><b>1. Choose between select a precharged file or upload a seismic file:</b></p>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="exampleRadios" id="selectfile" value="option1">
                 <label class="form-check-label text-white" for="exampleRadios1">
@@ -39,7 +40,7 @@
                 <div>
                     <div class="row mb-3">
                         <div class="col-sm-12">
-                            <label for="inputPassword3" class="col-form-label text-white">PLANET</label>
+                            <label for="inputPassword3 text-white" class="col-form-label text-white">PLANET</label>
                             <select class="form-select" aria-label="Default select example">
                                 <option selected>Open this select menu</option>
                                 <option value="mars">Mars</option>
@@ -50,7 +51,7 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-sm-12">
-                            <label for="inputPassword3" class="col-form-label text-white">DATA TYPE</label>
+                            <label for="inputPassword3 text-white" class="col-form-label text-white">DATA TYPE</label>
                             <select class="form-select" aria-label="Default select example">
                                 <option selected>Open this select menu</option>
                                 <option value="train">Train</option>
@@ -60,7 +61,7 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-sm-12">
-                            <label for="inputPassword3" class="col-form-label text-white">SELECT FILE</label>
+                            <label for="inputPassword3 text-white" class="col-form-label text-white">SELECT FILE</label>
                             <select class="form-select" aria-label="Default select example">
                                 <option selected>Open this select menu</option>
                                 <option value="train">1_CSV.csv</option>
@@ -69,8 +70,8 @@
                         </div>
                     </div>
                 </div>
-                <p class="lead text-white">2. Plot the data as a wave graph and spectogram:</p>
-                <button type="submit" class="btn btn-primary" >Build graphs</button>
+                <p class="lead text-white"><b>2. Plot the data as a wave graph and spectogram:</b></p>
+                <button type="submit" class="btn btn-primary" id="load_data" >Build graphs</button>
             </form>
             <form action="/upload" method="POST" enctype="multipart/form-data" id="uploadControls" hidden>
                 <div class="mb-3">
@@ -79,15 +80,42 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Subir archivo</button>
             </form>
-            <p class="lead text-white">Apply the machine learning model to detect the seismic pattern within graphs</p>
-            <a class="btn btn-primary btn-sm " href="#"   role="button">Apply AI detection model </a>
+            <div id="parte3" hidden>
+                <p class="lead text-black text-white"><b>3. Apply the machine learning model to detect the seismic pattern within graphs</b></p>
+                <a class="btn btn-primary btn-sm " href="#"   role="button"  id="run_model">Apply AI detection model </a>
+            </div>
         </div>
-        <div class="resultEvent"></div>
-        <div class="info"></div>
-        <div class="textResult"></div>
-        <div class="spectogram"></div>
-        <div class="graph"></div>
-        <div class="original"></div>
+        </div>
+        <div class="resultEvent gframe"></div>
+        <div class="info gframe"></div>
+        <div class="textResult gframe"></div>
+        <div class="spectogram gframe">
+            <img src="{{ url_for('static', filename='images/detect/predict/espectograma.png') }}" class="img-fluid" alt="Espectrograma">
+        </div>
+        <div class="graph gframe"></div>
+        <div class="original gframe">
+            <img src="{{ url_for('static', filename='images/detect/predict/original_signal_with_detections.png') }}" class="img-fluid" alt="Detección">
+        </div>
+        <div class="footer1 gframe">
+            <button
+                id="footer1"
+                type="button"
+                class="btn btn-primary"
+            >
+                Read paper 
+            </button>
+            
+        </div>
+        <div class="footer2 gframe"><a
+            name=""
+            id="footer2"
+            class="btn btn-primary"
+            href="#"
+            role="button"
+            >infografy</a
+        >
+        </div>
+        <div class="footer3 gframe"></div>
     </div>
 
     <!-- Bootstrap JavaScript Libraries -->
@@ -115,6 +143,57 @@
             uC.removeAttribute("hidden")
         });
 
+    </script>
+    <!-- JavaScript para manejar la ejecución del modelo -->
+    <script>
+        document.getElementById('runModel').addEventListener('click', function() {
+        // Ocultar el contenedor de resultados anteriores
+        document.getElementById('resultsContainer').style.display = 'none';
+
+        // Mostrar mensaje de cargando
+        document.getElementById('modelOutput').innerText = 'Ejecutando el modelo...';
+
+        // Realizar una solicitud AJAX a Flask para ejecutar el modelo
+        fetch('/run_model', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Recargar la página para ver las imágenes actualizadas
+                    location.reload();  // <-- Recarga toda la página
+                } else {
+                    document.getElementById('modelOutput').innerText = 'Error al ejecutar el modelo: ' + data.error;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('modelOutput').innerText = 'Error al ejecutar el modelo.';
+            });
+        });
+    </script>
+    <script>
+        document.getElementById('load_data').addEventListener('click', function() {
+        // Ocultar el contenedor de resultados anteriores
+        document.getElementById('resultsContainer').style.display = 'none';
+
+        // Mostrar mensaje de cargando
+        document.getElementById('modelOutput').innerText = 'Cargando Data...';
+
+        // Realizar una solicitud AJAX a Flask para ejecutar el modelo
+        fetch('/load_data', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Recargar la página para ver las imágenes actualizadas
+                    location.reload();  // <-- Recarga toda la página
+                } else {
+                    document.getElementById('modelOutput').innerText = 'Error al ejecutar el modelo: ' + data.error;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('modelOutput').innerText = 'Error al ejecutar el modelo.';
+            });
+        });
     </script>
 </body>
 

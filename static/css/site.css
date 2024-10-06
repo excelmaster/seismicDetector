@@ -102,7 +102,13 @@ body, html {
 }
 
 .gframe {
-    border: 3px solid ;
-    border-color: blue;
-
+    display: flex;
+    /* border: 1px solid ; */
+    /* border-color: rgb(114, 114, 236); */
+    -webkit-box-shadow: 0px 0px 28px -5px rgba(204,163,230,1);
+    -moz-box-shadow: 0px 0px 28px -5px rgba(204,163,230,1);
+    box-shadow: 0px 0px 28px -5px rgba(204,163,230,1);
+    align-content: center;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
