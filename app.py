@@ -24,8 +24,9 @@ model_path = 'static/models/train300.pt'
 test_filename = 'XB.ELYSE.02.BHV.2022-01-02HR04_evid0006'
 data_directory = 'source/mars/train/'
 mseed_file = f'{data_directory}{test_filename}.mseed'
-app = Flask(__name__)
 '''
+
+app = Flask(__name__)
 
 # Configura el archivo de log
 logging.basicConfig(filename='app.log', level=logging.DEBUG,
