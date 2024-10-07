@@ -1,4 +1,5 @@
 import os
+import logging
 import shutil
 import re
 import numpy as np
@@ -23,6 +24,11 @@ test_filename = 'XB.ELYSE.02.BHV.2022-01-02HR04_evid0006'
 data_directory = 'source/mars/train/'
 mseed_file = f'{data_directory}{test_filename}.mseed'
 app = Flask(__name__)
+
+# Configura el archivo de log
+logging.basicConfig(filename='app.log', level=logging.DEBUG,
+                    format='%(asctime)s %(levelname)s %(name)s %(message)s')
+logger = logging.getLogger(__name__)
 
 @app.route('/')
 def home():
