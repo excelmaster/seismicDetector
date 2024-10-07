@@ -69,13 +69,13 @@ You can modify the following parameters in the script:
 - **`results_path`**: The path to save detection results, such as spectrogram images and CSV files. Example: `"runs/detect/"`.
 - **`test_filename`**: The name of the MSEED file to process (without extension). Example: `"XB.ELYSE.02.BHV.2021-10-11HR23_evid0011"`.
 
-You can modify these parameters directly in the `detect_seismic.py` script or pass them as command-line arguments.
+You can modify these parameters directly in the `detect_sismic.py` script or pass them as command-line arguments.
 
 ### Example Usage
 Run the detection script on a specific MSEED file with the following command:
 
 ```bash
-python detect_seismic.py --data_directory="data/mars/test/data/" --model_path="models/train1000.pt" --test_filename="XB.ELYSE.02.BHV.2021-10-11HR23_evid0011"
+python detect_sismic.py --data_directory="source/mars/test/" --model_path="models/train1000.pt" --test_filename="XB.ELYSE.02.BHV.2021-10-11HR23_evid0011"
 ```
 
 ### Output
