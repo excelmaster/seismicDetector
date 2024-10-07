@@ -15,11 +15,15 @@ from matplotlib.animation import FuncAnimation
 # clear model
 model = None
 
+# config logging
+logging.basicConfig(level=logging.DEBUG)
+logging.debug("parte 1")
+
 # Cambiar el backend de Matplotlib para evitar errores relacionados con la interfaz gráfica
 plt.switch_backend('Agg')
 
 model_path = 'static/models/train300.pt'
-
+logging.debug("parte 2")
 ''' # Archivo MSEED de ejemplo
 test_filename = 'XB.ELYSE.02.BHV.2022-01-02HR04_evid0006'
 data_directory = 'source/mars/train/'
@@ -32,6 +36,7 @@ app = Flask(__name__)
 logging.basicConfig(filename='app.log', level=logging.DEBUG,
                     format='%(asctime)s %(levelname)s %(name)s %(message)s')
 logger = logging.getLogger(__name__)
+logging.debug("parte 3")
 
 @app.route('/')
 def home():
