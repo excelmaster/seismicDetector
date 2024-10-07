@@ -59,7 +59,7 @@ pip install -r requirements.txt
 To run the project and perform detection on an example MSEED file, use the following command:
 
 ```bash
-python detect_seismic.py
+python detect_sismic.py
 ```
 ### Parameters
 You can modify the following parameters in the script:
