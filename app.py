@@ -12,6 +12,9 @@ from matplotlib import cm
 from flask import Flask, render_template, jsonify
 from matplotlib.animation import FuncAnimation
 
+# clear model
+model = None
+
 # Cambiar el backend de Matplotlib para evitar errores relacionados con la interfaz gráfica
 plt.switch_backend('Agg')
 
@@ -45,8 +48,8 @@ def graphs():
 def run_model():
     try:
         # Cargar el modelo YOLO entrenado
-        model = YOLO(model_path)
-        
+        model = get_model()
+
         # Procesar el archivo MSEED y generar resultados
         tr = cargar_mseed(mseed_file)
         tr_times = tr.times()
@@ -167,7 +170,14 @@ def getFiles():
 
     # Devolver el listado de archivos como JSON
     return jsonify({'files': files})
+
+
 # ----------------- FUNCIONES ----------------- #
+def get_model():
+    global model
+    if model is None:
+        model =YOLO(model_path)
+    return model
 
 def cargar_mseed(file_path):
     """Carga el archivo MSEED y retorna la traza principal."""
