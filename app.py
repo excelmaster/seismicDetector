@@ -16,8 +16,6 @@ from matplotlib.animation import FuncAnimation
 plt.switch_backend('Agg')
 
 model_path = 'static/models/train300.pt'
-# Cargar el modelo YOLO entrenado
-model = YOLO(model_path)
 
  # Archivo MSEED de ejemplo
 test_filename = 'XB.ELYSE.02.BHV.2022-01-02HR04_evid0006'
@@ -46,6 +44,9 @@ def graphs():
 @app.route('/run_model', methods=['POST'])
 def run_model():
     try:
+        # Cargar el modelo YOLO entrenado
+        model = YOLO(model_path)
+        
         # Procesar el archivo MSEED y generar resultados
         tr = cargar_mseed(mseed_file)
         tr_times = tr.times()
