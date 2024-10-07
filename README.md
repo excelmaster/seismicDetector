@@ -37,8 +37,8 @@ conda create --name seismic_env python=3.8
 conda activate seismic_env
 pip install -r requirements.txt
 ```
-###  *web interactive application - A quicker option*:
-We created an [interactive web platform](URL) that allows scientists and the general public to:
+###  *Web interactive application - A quicker option*:
+We created an [interactive web platform](google.com) that allows scientists and the general public to:
 
 - Visualize spectrograms with detected seismic events.
 - Test different trained models dedicated to specific celestial bodies (such as the Moon or Mars) or more generalized models for various environments.
