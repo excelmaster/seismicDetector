@@ -68,7 +68,7 @@ def plot_spectrogram(t, f, sxx_normalized, save_path, w=10, h=3, labels_active=F
         ax.set_ylim([min(f), max(f)])
         ax.set_ylabel('Frequency (Hz)')
         ax.set_xlabel('Time (s)')
-        ax.set_title('Spectrogram')
+        ax.set_title(test_filename)
         ax.axis('on')
     else:
         ax.axis('off')
