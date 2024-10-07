@@ -20,11 +20,12 @@ plt.switch_backend('Agg')
 
 model_path = 'static/models/train300.pt'
 
- # Archivo MSEED de ejemplo
+''' # Archivo MSEED de ejemplo
 test_filename = 'XB.ELYSE.02.BHV.2022-01-02HR04_evid0006'
 data_directory = 'source/mars/train/'
 mseed_file = f'{data_directory}{test_filename}.mseed'
 app = Flask(__name__)
+'''
 
 # Configura el archivo de log
 logging.basicConfig(filename='app.log', level=logging.DEBUG,
@@ -44,7 +45,7 @@ def graphs():
     # Renderizar la plantilla `results.html`
     return render_template("results.html", results={}) '''
     
-@app.route('/run_model', methods=['POST'])
+''' @app.route('/run_model', methods=['POST'])
 def run_model():
     try:
         # Cargar el modelo YOLO entrenado
@@ -91,7 +92,8 @@ def run_model():
     
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
-
+'''
+        
 @app.route('/load_data', methods=['POST'])
 def load_data():
     try:
