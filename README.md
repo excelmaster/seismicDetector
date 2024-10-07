@@ -5,7 +5,7 @@ This project is focused on detecting seismic events using spectrogram analysis a
 ## Learn more
 [Ver](https://www.youtube.com/watch?v=dERFpcr99HM&ab_channel=KarenDayanna)
 
-[PAPER](./Spectrogram Analysis Using Machine Learning Models.pdf)
+[PAPER](./Spectrogram%20Analysis%20Using%20Machine%20Learning%20Models.pdf)
 
 
 # Web interactive application - A quicker option:
