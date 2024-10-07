@@ -12,21 +12,31 @@ from matplotlib import cm
 from flask import Flask, render_template, jsonify
 from matplotlib.animation import FuncAnimation
 
+# clear model
+model = None
+
+# config logging
+logging.basicConfig(level=logging.DEBUG)
+logging.debug("parte 1")
+
 # Cambiar el backend de Matplotlib para evitar errores relacionados con la interfaz gráfica
 plt.switch_backend('Agg')
 
 model_path = 'static/models/train300.pt'
-
- # Archivo MSEED de ejemplo
+logging.debug("parte 2")
+''' # Archivo MSEED de ejemplo
 test_filename = 'XB.ELYSE.02.BHV.2022-01-02HR04_evid0006'
 data_directory = 'source/mars/train/'
 mseed_file = f'{data_directory}{test_filename}.mseed'
+'''
+
 app = Flask(__name__)
 
 # Configura el archivo de log
 logging.basicConfig(filename='app.log', level=logging.DEBUG,
                     format='%(asctime)s %(levelname)s %(name)s %(message)s')
 logger = logging.getLogger(__name__)
+logging.debug("parte 3")
 
 @app.route('/')
 def home():
@@ -41,12 +51,12 @@ def graphs():
     # Renderizar la plantilla `results.html`
     return render_template("results.html", results={}) '''
     
-@app.route('/run_model', methods=['POST'])
+''' @app.route('/run_model', methods=['POST'])
 def run_model():
     try:
         # Cargar el modelo YOLO entrenado
-        model = YOLO(model_path)
-        
+        model = get_model()
+
         # Procesar el archivo MSEED y generar resultados
         tr = cargar_mseed(mseed_file)
         tr_times = tr.times()
@@ -88,7 +98,8 @@ def run_model():
     
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
-
+'''
+        
 @app.route('/load_data', methods=['POST'])
 def load_data():
     try:
@@ -167,7 +178,14 @@ def getFiles():
 
     # Devolver el listado de archivos como JSON
     return jsonify({'files': files})
+
+
 # ----------------- FUNCIONES ----------------- #
+def get_model():
+    global model
+    if model is None:
+        model =YOLO(model_path)
+    return model
 
 def cargar_mseed(file_path):
     """Carga el archivo MSEED y retorna la traza principal."""
