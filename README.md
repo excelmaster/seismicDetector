@@ -2,7 +2,7 @@
 
 This project is focused on detecting seismic events using spectrogram analysis and a YOLO model for object detection. The primary goal is to process seismic data (e.g., from Mars or the Moon), generate spectrograms, and use a trained YOLO model to detect seismic events.
 
-[Ver video](https://www.youtube.com/watch?v=ID_DEL_VIDEO)
+[Ver video](https://www.youtube.com/watch?v=dERFpcr99HM&ab_channel=KarenDayanna)
 
 
 # Web interactive application - A quicker option:
