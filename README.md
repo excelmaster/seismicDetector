@@ -1,4 +1,4 @@
-# Seismic Detection Using Spectrogram Analysis
+# Seismic Detection Across the Solar System: Spectrogram Analysis Using Machine Learning Models
 
 This project is focused on detecting seismic events using spectrogram analysis and a YOLO model for object detection. The primary goal is to process seismic data (e.g., from Mars or the Moon), generate spectrograms, and use a trained YOLO model to detect seismic events.
 
@@ -37,6 +37,13 @@ conda create --name seismic_env python=3.8
 conda activate seismic_env
 pip install -r requirements.txt
 ```
+###  *web interactive application - A quicker option*:
+We created an [interactive web platform](URL) that allows scientists and the general public to:
+
+- Visualize spectrograms with detected seismic events.
+- Test different trained models dedicated to specific celestial bodies (such as the Moon or Mars) or more generalized models for various environments.
+- Use available seismic data from NASA or terrestrial seismic records.
+- Upload new data in miniseed format to test real-time detection.
 
 ## Usage
 To run the project and perform detection on an example MSEED file, use the following command:
