@@ -28,7 +28,7 @@ def calculate_spectrogram(tr_data, sampling_rate):
     sxx_normalized = sxx / vmax 
     return f, t, sxx_normalized
 
-def plot_spectrogram(t, f, sxx_normalized, save_path, w=10, h=3, labels=False, show_colorbar=False, x_coords=None, cmap_name='jet'):
+def plot_spectrogram(t, f, sxx_normalized, save_path, w=10, h=3, labels_active=False, show_colorbar=False, x_coords=None, cmap_name='jet'):
     """Plot and save the spectrogram."""
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
     fig, ax = plt.subplots(figsize=(w, h), dpi=100)
@@ -37,23 +37,6 @@ def plot_spectrogram(t, f, sxx_normalized, save_path, w=10, h=3, labels=False, s
         fig.colorbar(cmap, ax=ax)
     lines = []
     labels = []
-    if 'training' in data_directory:
-        data_catalog = 'space_apps_2024_seismic_detection/data/catalog/'
-        catalog_file = os.path.join(data_catalog, 'catalog.csv')
-        try:
-            catalog_df = pd.read_csv(catalog_file)
-            mseed_filename = os.path.basename(mseed_file).replace('.mseed', '')
-            matched_row = catalog_df[catalog_df['filename'] == mseed_filename]
-            if not matched_row.empty:
-                time_rel_value = matched_row['time_rel(sec)'].values[0]
-                line = ax.axvline(x=time_rel_value, c='green', linestyle='-', linewidth=2, label='Expected time_rel')
-                ax.text(time_rel_value, max(f)-3, f'x = {time_rel_value:.2f}', color='green', fontsize=12, verticalalignment='bottom')
-                lines.append(line)
-                labels.append('Expected time_rel')
-            else:
-                print(f"The filename '{mseed_filename}' was not found in the catalog.csv file.")
-        except Exception as e:
-            print(f"Error processing the file. {catalog_file}: {e}")
 
     if x_coords is not None:
         for x in x_coords:
@@ -61,13 +44,31 @@ def plot_spectrogram(t, f, sxx_normalized, save_path, w=10, h=3, labels=False, s
             ax.text(x, max(f)-4, f'x = {x:.2f}', color='red', fontsize=12, verticalalignment='bottom')
             lines.append(line)
             labels.append('Predicted Arrival')
+        if 'training' in data_directory:
+            data_catalog = 'space_apps_2024_seismic_detection/data/catalog/'
+            catalog_file = os.path.join(data_catalog, 'catalog.csv')
+            try:
+                catalog_df = pd.read_csv(catalog_file)
+                mseed_filename = os.path.basename(mseed_file).replace('.mseed', '')
+                matched_row = catalog_df[catalog_df['filename'] == mseed_filename]
+                if not matched_row.empty:
+                    time_rel_value = matched_row['time_rel(sec)'].values[0]
+                    line = ax.axvline(x=time_rel_value, c='green', linestyle='-', linewidth=2, label='Expected time_rel')
+                    ax.text(time_rel_value, max(f)-3, f'x = {time_rel_value:.2f}', color='green', fontsize=12, verticalalignment='bottom')
+                    lines.append(line)
+                    labels.append('Expected time_rel')
+                else:
+                    print(f"The filename '{mseed_filename}' was not found in the catalog.csv file.")
+            except Exception as e:
+                print(f"Error processing the file. {catalog_file}: {e}")
+
     ax.legend(lines, labels)
-    if labels:
+    if labels_active:
         ax.set_xlim([min(t), max(t)])
         ax.set_ylim([min(f), max(f)])
         ax.set_ylabel('Frequency (Hz)')
         ax.set_xlabel('Time (s)')
-        ax.set_title('Spectrogram')
+        ax.set_title(test_filename)
         ax.axis('on')
     else:
         ax.axis('off')
@@ -187,7 +188,7 @@ sampling_rate = calculate_sampling_rate(tr_times)
 f, t, sxx_normalized = calculate_spectrogram(tr_data, sampling_rate)
 
 temp_image_path = os.path.join(results_path, "temp_image.png")
-plot_spectrogram(t, f, sxx_normalized, temp_image_path, w=size, h=size)
+plot_spectrogram(t, f, sxx_normalized, temp_image_path, w=size, h=size, labels_active=False, show_colorbar=False, x_coords=None)
 
 results = perform_detection(model, temp_image_path, save_dir=results_path)
 results_path = get_latest_predict_folder()
@@ -199,7 +200,7 @@ output_trace_path = os.path.join(results_path, "original_signal_detections.png")
 plot_signal(tr_times, tr_data, output_trace_path, w=10, h=3, x_coords=x_coords_scaled, mseed_file=test_filename)
 
 output = os.path.join(results_path, "Spectrogram_detections.png")
-plot_spectrogram(t, f, sxx_normalized, output, labels=True, show_colorbar=True, x_coords=x_coords_scaled, cmap_name='jet')
+plot_spectrogram(t, f, sxx_normalized, output, labels_active=True, show_colorbar=True, x_coords=x_coords_scaled, cmap_name='jet')
     
 results_path = "runs/detect"
 temp_image_path = os.path.join(results_path, "temp_image.png")

@@ -2,6 +2,23 @@
 
 This project is focused on detecting seismic events using spectrogram analysis and a YOLO model for object detection. The primary goal is to process seismic data (e.g., from Mars or the Moon), generate spectrograms, and use a trained YOLO model to detect seismic events.
 
+## Learn more
+[Ver](https://www.youtube.com/watch?v=dERFpcr99HM&ab_channel=KarenDayanna)
+
+<a href="https://www.youtube.com/watch?v=dERFpcr99HM" target="_blank">
+  <img src="https://img.youtube.com/vi/dERFpcr99HM/0.jpg" alt="Ver video en YouTube" width="500"/>
+</a>
+
+[PAPER](./Spectrogram%20Analysis%20Using%20Machine%20Learning%20Models.pdf)
+
+# Web interactive application - A quicker option:
+We created an [interactive web platform](http://161.35.123.191:5000/) that allows scientists and the general public to:
+
+- Visualize spectrograms with detected seismic events.
+- Test different trained models dedicated to specific celestial bodies (such as the Moon or Mars) or more generalized models for various environments.
+- Use available seismic data from NASA or terrestrial seismic records.
+- Upload new data in miniseed format to test real-time detection.
+
 ## Table of Contents
 - [Project Overview](#project-overview)
 - [Installation](#installation)
@@ -37,13 +54,6 @@ conda create --name seismic_env python=3.8
 conda activate seismic_env
 pip install -r requirements.txt
 ```
-###  *web interactive application - A quicker option*:
-We created an [interactive web platform](URL) that allows scientists and the general public to:
-
-- Visualize spectrograms with detected seismic events.
-- Test different trained models dedicated to specific celestial bodies (such as the Moon or Mars) or more generalized models for various environments.
-- Use available seismic data from NASA or terrestrial seismic records.
-- Upload new data in miniseed format to test real-time detection.
 
 ## Usage
 To run the project and perform detection on an example MSEED file, use the following command:
