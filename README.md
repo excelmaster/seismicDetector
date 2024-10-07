@@ -4,6 +4,7 @@ This project is focused on detecting seismic events using spectrogram analysis a
 
 ## Learn more
 [Ver](https://www.youtube.com/watch?v=dERFpcr99HM&ab_channel=KarenDayanna)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dERFpcr99HM?si=EnYueev-eNGtRM-9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 [PAPER](./Spectrogram%20Analysis%20Using%20Machine%20Learning%20Models.pdf)
 
