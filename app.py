@@ -16,7 +16,7 @@ plt.switch_backend('Agg')
 
 model_path = 'static/models/train300.pt'
 # Cargar el modelo YOLO entrenado
-model = YOLO(model_path)
+#model = YOLO(model_path)
 
  # Archivo MSEED de ejemplo
 test_filename = 'XB.ELYSE.02.BHV.2022-01-02HR04_evid0006'
@@ -33,10 +33,12 @@ def home():
 def graphs():
     return render_template("dashboard.html")
 
+'''
 @app.route('/graphs')
 def graphs():
     # Renderizar la plantilla `results.html`
     return render_template("results.html", results={})
+'''
     
 @app.route('/run_model', methods=['POST'])
 def run_model():
@@ -53,6 +55,7 @@ def run_model():
         results_path = obtener_ultima_carpeta_predict()
         temp_image_path = os.path.join(results_path, "temp_image.png")
 
+        model = YOLO(model_path)
         # Realizar la detección en el espectrograma generado
         results = realizar_deteccion(model, temp_image_path, save_dir=results_path)
 
@@ -69,7 +72,7 @@ def run_model():
          # Ruta para guardar el espectrograma con las detecciones
         temp_image_path = os.path.join(results_path, "espectograma.png")
         # Crear la gráfica del espectrograma
-        graficar_espectrograma(t_spec, f, sxx_normalized, temp_image_path, labels = True, show_colorbar=True, x_coords=x_coords_scaled, cmap_name='jet')
+        graficar_espectrograma(t_spec, f, sxx_normalized, temp_image_path, labels_active = True, show_colorbar=True, x_coords=x_coords_scaled, cmap_name='jet')
 
         # Resultados a devolver en la respuesta JSON
         response = {
@@ -131,13 +134,13 @@ def load_data():
         f, t_spec, sxx_normalized = calcular_spectrograma(tr_data, sampling_rate)
 
         save_path = os.path.join(results_path, "temp_image.png")
-        graficar_espectrograma(t_spec, f, sxx_normalized, save_path, size, size, False, False)
+        graficar_espectrograma(t_spec, f, sxx_normalized, save_path, size, size, labels_active = False, show_colorbar=False, x_coords=None)
 
         # Ruta para guardar el espectrograma con las detecciones
         temp_image_path = os.path.join(results_path, "espectograma.png")
 
         # Crear la gráfica del espectrograma
-        graficar_espectrograma(t_spec, f, sxx_normalized, temp_image_path, labels = True, show_colorbar=True, x_coords=None, cmap_name='jet')
+        graficar_espectrograma(t_spec, f, sxx_normalized, temp_image_path, labels_active = True, show_colorbar=True, x_coords=None, cmap_name='jet')
 
         # Resultados a devolver en la respuesta JSON
         response = {
@@ -176,7 +179,7 @@ def calcular_spectrograma(tr_data, sampling_rate):
     sxx_normalized = sxx / vmax  # Normalizar el espectrograma
     return f, t, sxx_normalized
 
-def graficar_espectrograma(t, f, sxx_normalized, save_path, w=10, h=3, labels=False, show_colorbar=False, x_coords=None, cmap_name='jet'):
+def graficar_espectrograma(t, f, sxx_normalized, save_path, w=10, h=3, labels_active=False, show_colorbar=False, x_coords=None, cmap_name='jet'):
     """Grafica y guarda el espectrograma."""
     # Asegurar que el directorio exista antes de guardar
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
@@ -193,41 +196,6 @@ def graficar_espectrograma(t, f, sxx_normalized, save_path, w=10, h=3, labels=Fa
     lines = []
     labels = []
 
-    if 'training' in data_directory:
-        print("data_directory: ", data_directory)
-        # Reemplazar '/data/' con '/catalog/' en el directorio
-        data_catalog = 'space_apps_2024_seismic_detection/data/catalog/'
-
-        # Definir la ruta del archivo catalog.csv en el nuevo directorio
-        catalog_file = os.path.join(data_catalog, 'catalog.csv')
-
-        try:
-            # Leer el archivo catalog.csv
-            catalog_df = pd.read_csv(catalog_file)
-
-            # Obtener solo el nombre base del archivo mseed sin extensión
-            mseed_filename = os.path.basename(mseed_file).replace('.mseed', '')
-
-            # Filtrar el DataFrame para encontrar el `time_rel(sec)` correspondiente al `mseed_filename`
-            matched_row = catalog_df[catalog_df['filename'] == mseed_filename]
-
-            # Si se encuentra una coincidencia, obtener el valor de `time_rel(sec)` y graficarlo
-            if not matched_row.empty:
-                time_rel_value = matched_row['time_rel(sec)'].values[0]
-                # Crear la línea verde para `time_rel`
-                line = ax.axvline(x=time_rel_value, c='green', linestyle='-', linewidth=2, label='Expected time_rel')
-                ax.text(time_rel_value, max(f)-3, f'x = {time_rel_value:.2f}', color='green', fontsize=12, verticalalignment='bottom')
-
-                # Añadir la línea y la etiqueta a las listas
-                lines.append(line)
-                labels.append('Expected time_rel')
-            else:
-                print(f"No se encontró el filename '{mseed_filename}' en el archivo catalog.csv.")
-        except FileNotFoundError:
-            print(f"El archivo {catalog_file} no fue encontrado.")
-        except Exception as e:
-            print(f"Error al procesar el archivo {catalog_file}: {e}")
-
     # Añadir detecciones si se proporcionan las coordenadas x
     if x_coords is not None:
         for x in x_coords:
@@ -239,10 +207,45 @@ def graficar_espectrograma(t, f, sxx_normalized, save_path, w=10, h=3, labels=Fa
             lines.append(line)
             labels.append('Predicted Arrival')
 
+        if 'training' in data_directory:
+            print("data_directory: ", data_directory)
+            # Reemplazar '/data/' con '/catalog/' en el directorio
+            data_catalog = 'space_apps_2024_seismic_detection/data/catalog/'
+
+            # Definir la ruta del archivo catalog.csv en el nuevo directorio
+            catalog_file = os.path.join(data_catalog, 'catalog.csv')
+
+            try:
+                # Leer el archivo catalog.csv
+                catalog_df = pd.read_csv(catalog_file)
+
+                # Obtener solo el nombre base del archivo mseed sin extensión
+                mseed_filename = os.path.basename(mseed_file).replace('.mseed', '')
+
+                # Filtrar el DataFrame para encontrar el `time_rel(sec)` correspondiente al `mseed_filename`
+                matched_row = catalog_df[catalog_df['filename'] == mseed_filename]
+
+                # Si se encuentra una coincidencia, obtener el valor de `time_rel(sec)` y graficarlo
+                if not matched_row.empty:
+                    time_rel_value = matched_row['time_rel(sec)'].values[0]
+                    # Crear la línea verde para `time_rel`
+                    line = ax.axvline(x=time_rel_value, c='green', linestyle='-', linewidth=2, label='Expected time_rel')
+                    ax.text(time_rel_value, max(f)-3, f'x = {time_rel_value:.2f}', color='green', fontsize=12, verticalalignment='bottom')
+
+                    # Añadir la línea y la etiqueta a las listas
+                    lines.append(line)
+                    labels.append('Expected time_rel')
+                else:
+                    print(f"No se encontró el filename '{mseed_filename}' en el archivo catalog.csv.")
+            except FileNotFoundError:
+                print(f"El archivo {catalog_file} no fue encontrado.")
+            except Exception as e:
+                print(f"Error al procesar el archivo {catalog_file}: {e}")
+
     # Añadir las etiquetas de las líneas a la leyenda
     ax.legend(lines, labels)
 
-    if labels:
+    if labels_active:
         # Configurar los límites y etiquetas
         ax.set_xlim([min(t), max(t)])
         ax.set_ylim([min(f), max(f)])
